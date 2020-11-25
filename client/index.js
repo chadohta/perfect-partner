@@ -1,5 +1,5 @@
-// const socket = io.connect('https://infinite-depths-39706.herokuapp.com/');
-const socket = io.connect('http://localhost:3000');
+const socket = io.connect('https://infinite-depths-39706.herokuapp.com/');
+// const socket = io.connect('http://localhost:3000');
 
 socket.on('init', handleInit);
 socket.on('gameCode', handleGameCode);
