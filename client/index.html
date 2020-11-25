@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MultiPlayer Snake</title>
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
+  		integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+<style>
+    #initialScreen { display: none; }
+    #gameScreen { display: none; }
+    #waitingScreen { display: none; }
+    #startGameBtn {display: none; }
+    #daterChoosing {display: none; }
+    #daterSubmit { display: none; }
+</style>
+
+</head>
+<body>
+    <section class="vh-100">
+        <div class="container h-100">
+            <div id="lockScreen" class="h-100">
+                <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                    <div class="form-group">
+                        <!-- <input type="text" placeholder="Enter Password" id="sitePassAttempt"/>
+                        <button type="submit" class="btn btn-info" id="submitPassBtn"> Submit </button> -->
+                        Password: <input type="password" value="" id="sitePassAttempt"/>
+                        <input type="checkbox" onclick="toggleShowPassword()"> Show Password
+                    </div>
+                    <button type="submit" class="btn btn-info" id="submitPassBtn"> Submit </button>
+                </div>
+            </div>
+
+            <!-- INITIAL SCREEN - NAME, CREATE GAME, JOIN GAME -->
+            <div id="initialScreen" class="h-100">
+                <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                    <h1 id="gameTitle"> 💞 Perfect Partner 💞 </h1>
+                    <div class="form-group">
+                        <input type="text" placeholder="Enter Name" id="playerName"/>
+                    </div>
+                    <!-- <button type="submit" class="btn btn-success" id="newGameBtn"> Create New Game </button>
+                    <div> OR </div> -->
+                    <div class="form-group">
+                        <input type="text" placeholder="Enter Game Code" id="gameCodeInput"/>
+                    </div>
+                    <button type="submit" class="btn btn-info" id="joinGameBtn"> Join Game </button>
+                    </br>
+                    <div> OR </div>
+                    </br>
+                    <button type="submit" class="btn btn-info" id="newGameBtn"> Create New Game </button>
+                </div>
+            </div>
+            <!-- WAITING SCREEN (SHOWS ROOM CODE AND PLAYERS IN ROOM) -->
+            <div id="waitingScreen" class="h-100">
+                <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                    <h1 class="waitingScreenHeader">Your game code is:</h1>
+                    <span id="gameCodeDisplay"></span>
+                    <h1 class="waitingScreenHeader"> Players in Room: </h1>
+                    <div id="playersWaiting"> </div>
+                    <button type="submit" class="btn btn-info" id="startGameBtn"> Start Game </button>
+                </div>
+            </div>
+            <!-- GAME SCREEN; INDIVIDUAL PLAYER HANDS -->
+            <div id="gameScreen" class="h-100">
+                <div class="d-flex flex-column align-items-center justify-content-center h-100">
+
+                    <h1 class="gameScreenHeader"> Make the perfect partner for <span id="daterName"> </span> </h1>
+                    <div class="form-group">
+                        <div class="white-card">
+                            <label for="white1" class="player-card" id="whiteOne"> </label>
+                            <input type="checkbox" id="white1" name="whiteCardOption"></input>
+                        </div>
+                        <div class="white-card">
+                            <label for="white2" class="player-card" id="whiteTwo"> </label>
+                            <input type="checkbox" id="white2" name="whiteCardOption"></input>
+                        </div>
+                        <div class="white-card">
+                            <label for="white3" class="player-card" id="whiteThree"> </label>
+                            <input type="checkbox" id="white3" name="whiteCardOption"></input>
+                        </div>
+                        <div class="white-card">
+                            <label for="white4" class="player-card" id="whiteFour"> </label>
+                            <input type="checkbox" id="white4" name="whiteCardOption"></input>
+                        </div>
+                    </div>
+
+                    <h1 class="gameScreenHeader"> Make another player's partner not so perfect </h1>
+                    <div class="form-group">
+                        <div class="red-card">
+                            <label for="red1" class="red-card-text" id="redOne"> </label>
+                            <input type="radio" id="red1" name="redCardOption" value="Test"></input>
+                        </div>
+                        <div class="red-card">
+                            <label for="red2" class="red-card-text" id="redTwo"> </label>
+                            <input type="radio" id="red2" name="redCardOption" value="Mug"></input>
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Submit" id="playerSubmit"></input>
+            
+                </div>
+            </div>
+
+            <!-- DATING SCREEN; ALL SUBMITTED "PARTNERS" -->
+            <div id="daterChoosing" class="h-100">
+                <!-- {/* id="current-dater-wrapper" */}
+                {/* able to just lay over game board but show image? */}
+                {/* <div id="current-dater-img">
+                    <img src={tempPlayer} alt="current dater"/>
+                </div> */} -->
+                <div class="d-flex flex-column align-items-center justify-content-center h-100">
+                    <h1 class="daterChoosingHeader"> Perfect Partners for <span id="daterName2"> </span></h1>
+                    <div id="partner-options" name="partners"> 
+                        <div class="part-option"> 
+                            <label for="option1"> 
+                                <div id="white-card-1-1" class="white-card option"> </div>
+                                <div id="white-card-1-2" class="white-card option"> </div>
+                                <div id="red-card-1-1"class="red-card option"> </div>
+                                <p id="player-name-1"> - </p>
+                            </label>
+                            <input type="radio" id="option1" name="daterOption" disabled></input>
+                        </div>
+
+                        <div class="part-option"> 
+                            <label for="option2"> 
+                                <div id="white-card-2-1" class="white-card option"> </div>
+                                <div id="white-card-2-2" class="white-card option"> </div>
+                                <div id="red-card-2-1" class="red-card option"> </div>
+                                <p id="player-name-2"> - </p>
+                            </label>
+                            <input type="radio" id="option2" name="daterOption" disabled></input>
+                        </div>
+
+                        <div class="part-option"> 
+                            <label for="option3"> 
+                                <div id="white-card-3-1" class="white-card option"> </div>
+                                <div id="white-card-3-2" class="white-card option"> </div>
+                                <div id="red-card-3-1" class="red-card option"> </div>
+                                <p id="player-name-3"> - </p>
+                            </label>
+                            <input type="radio" id="option3" name="daterOption" disabled></input>
+                        </div>
+
+                        <div class="part-option"> 
+                            <label for="option4"> 
+                                <div id="white-card-4-1" class="white-card option"> </div>
+                                <div id="white-card-4-2" class="white-card option"> </div>
+                                <div id="red-card-4-1" class="red-card option"> </div>
+                                <p id="player-name-4"> - </p>
+                            </label>
+                            <input type="radio" id="option4" name="daterOption" disabled></input>
+                        </div>
+
+                        <div class="part-option"> 
+                            <label for="option5"> 
+                                <div id="white-card-5-1" class="white-card option"> </div>
+                                <div id="white-card-5-2" class="white-card option"> </div>
+                                <div id="red-card-5-1" class="red-card option"> </div>
+                                <p id="player-name-5"> - </p>
+                            </label>
+                            <input type="radio" id="option5" name="daterOption" disabled></input>
+                        </div>
+
+                        <div class="part-option"> 
+                            <label for="option6"> 
+                                <div id="white-card-6-1" class="white-card option"> </div>
+                                <div id="white-card-6-2" class="white-card option"> </div>
+                                <div id="red-card-6-1" class="red-card option"> </div>
+                                <p id="player-name-6"> - </p>
+                            </label>
+                            <input type="radio" id="option6" name="daterOption" disabled></input>
+                        </div>
+                    </div>
+
+                    <input type="submit" value="Submit" id="daterSubmit" disabled></input>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.1/socket.io.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+html,
+body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+h1#gameTitle { 
+    font-family: "Poppins-Bold";
+    font-size: 50px;
+    margin-bottom: 40px;
+}
+
+.waitingScreenHeader { 
+    font-family: "Poppins-Extra-Light";
+    font-size: 50px;
+}
+
+#gameCodeDisplay, 
+#playersWaiting {
+    font-family: "Poppins-Bold";
+    font-size: 50px;
+    color: maroon;
+    margin-bottom: 50px;
+}
+
+#playersWaiting { 
+    font-size: 30px;
+}
+
+#game-body {
+    padding-top: 50px;
+    width: 100%;
+    background-color: #ccdfdf;
+    display: block;
+}
+
+h1.gameScreenHeader { 
+    font-family: "Poppins-Regular";
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+#daterName,
+#daterName2 {
+    font-family: "Poppins-Bold";
+}
+
+/* #current-dater-wrapper {
+    display: inline-block;
+    margin-bottom: 50px;
+}
+
+#current-dater-img {
+    border-radius: 100%;
+    display: inline-block;
+    height: 200px;
+    justify-content: center;
+    overflow: hidden;
+    width: 200px;
+} */
+
+.white-card,
+.red-card {
+    display: inline-block;
+    margin: 5px;
+    height: 175px;
+    width: 150px;
+    background-color: rgb(235, 235, 235);
+    text-align: center;
+    vertical-align: top;
+    border-radius: 20px;
+}
+
+input {
+    display: inline-block;
+    margin: auto;
+}
+
+label.player-card,
+label.red-card-text {
+    display: block;
+    height: 80%;
+    width: 150px;
+    padding: 15px;
+    background-color: rgb(235, 235, 235);
+    font-family: "Nunito-Light";
+    font-size: 14px;
+    text-align: left;
+    border-radius: 20px;
+}
+
+.red-card,
+label.red-card-text {
+    background-color: rgb(230, 75, 75);
+    color: white;
+}
+
+#playerSubmit { 
+    margin-top: 20px;
+    width: 200px;
+    height: 40px;
+}
+
+/* ------------------------------------------- */
+#daterChoosing { 
+    text-align: center;
+}
+
+#partner-options {
+    background-color: rgb(225, 225, 225);
+    border-radius: 20px;
+    text-align: center;
+    width: 1000px;
+    margin-bottom: 20px;
+}
+
+.part-option {
+    display: inline-block;
+    width: 160px;
+    margin: 10px 0px;
+    padding-bottom: 20px;
+}
+
+.part-option .white-card {
+    display: block;
+}
+
+.part-option .red-card {
+    display: block;
+}
+
+#daterSubmit {
+    width: 400px;
+    height: 40px;
+}
+
+.white-card.option,
+.red-card.option { 
+    height: 160px;
+    font-family: "Nunito-Light";
+    font-size: 13px;
+    text-align: left;
+    padding: 10px;
+}
+
+p { 
+    font-family: "Poppins-Bold";
+    font-size: 20px;
+    text-align: center;
+}
+
+h1.daterChoosingHeader { 
+    font-family: "Poppins-Regular";
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+
+@font-face {
+    font-family: 'Oswald';
+    src: local('Oswald'), url(./assets/fonts/Oswald/static/Oswald-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins-Bold';
+    src: local('Poppins'), url(./assets/fonts/Poppins/Poppins-Bold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins-Regular';
+    src: local('Poppins'), url(./assets/fonts/Poppins/Poppins-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins-Extra-Light';
+    src: local('Poppins'), url(./assets/fonts/Poppins/Poppins-ExtraLight.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Nunito-Light';
+    src: local('NunitoSans'), url(./assets/fonts/NunitoSans/NunitoSans-Light.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Nunito-Regular';
+    src: local('NunitoSans'), url(./assets/fonts/NunitoSans/NunitoSans-Regular.ttf) format('truetype');
+}
