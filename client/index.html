@@ -20,27 +20,23 @@
 <body>
     <section class="vh-100">
         <div class="container h-100">
+            <!-- LOCK SCREEN -->
             <div id="lockScreen" class="h-100">
                 <div class="d-flex flex-column align-items-center justify-content-center h-100">
                     <div class="form-group">
-                        <!-- <input type="text" placeholder="Enter Password" id="sitePassAttempt"/>
-                        <button type="submit" class="btn btn-info" id="submitPassBtn"> Submit </button> -->
                         Password: <input type="password" value="" id="sitePassAttempt"/>
                         <input type="checkbox" onclick="toggleShowPassword()"> Show Password
                     </div>
                     <button type="submit" class="btn btn-info" id="submitPassBtn"> Submit </button>
                 </div>
             </div>
-
-            <!-- INITIAL SCREEN - NAME, CREATE GAME, JOIN GAME -->
+            <!-- INITIAL SCREEN  -->
             <div id="initialScreen" class="h-100">
                 <div class="d-flex flex-column align-items-center justify-content-center h-100">
                     <h1 id="gameTitle"> 💞 Perfect Partner 💞 </h1>
                     <div class="form-group">
                         <input type="text" placeholder="Enter Name" id="playerName"/>
                     </div>
-                    <!-- <button type="submit" class="btn btn-success" id="newGameBtn"> Create New Game </button>
-                    <div> OR </div> -->
                     <div class="form-group">
                         <input type="text" placeholder="Enter Game Code" id="gameCodeInput"/>
                     </div>
@@ -104,11 +100,9 @@
 
             <!-- DATING SCREEN; ALL SUBMITTED "PARTNERS" -->
             <div id="daterChoosing" class="h-100">
-                <!-- {/* id="current-dater-wrapper" */}
-                {/* able to just lay over game board but show image? */}
-                {/* <div id="current-dater-img">
+                <!-- <div id="current-dater-img">
                     <img src={tempPlayer} alt="current dater"/>
-                </div> */} -->
+                </div> -->
                 <div class="d-flex flex-column align-items-center justify-content-center h-100">
                     <h1 class="daterChoosingHeader"> Perfect Partners for <span id="daterName2"> </span></h1>
                     <div id="partner-options" name="partners"> 

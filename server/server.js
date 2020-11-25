@@ -84,7 +84,7 @@ io.on('connection', client => {
         createNewPotentialPartner(state[roomName], client.number, data.white1, data.white2, data.red1);
         let allSubmitted = assignRedCards(state[roomName]);
         if (allSubmitted){ 
-            emitPartnerChoices(roomName, state[roomName]); // an array of object partners
+            emitPartnerChoices(roomName, state[roomName]);
         }
     }
 
@@ -133,4 +133,3 @@ function emitGameOver(roomName, winner) {
 }
 
 http.listen(process.env.PORT || 3000);
-

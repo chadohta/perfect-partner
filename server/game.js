@@ -154,7 +154,6 @@ function resetServerGameRoom(state) {
     }
     state.currentDater.id = 0;
     state.currentDater.name = "Current Dater";
-    // clearPotentialPartners(state);
     state.currentlyWinning.id = 0;
     state.currentlyWinning.player = "Current Winner";
     state.currentlyWinning.score = 0;

@@ -48,6 +48,7 @@ function handlePasswordSubmit() {
     }
 }
 
+// Toggles ability to see or hide password input
 function toggleShowPassword() {
   var x = document.getElementById("sitePassAttempt");
   if (x.type === "password") {
@@ -145,11 +146,11 @@ function handlePlayerSubmit() {
         alert("Please select 1 red card");
         return;
     }
-    var white1 = whiteCheckedBoxes[0].id; // grab id
+    var white1 = whiteCheckedBoxes[0].id;
     var white2 = whiteCheckedBoxes[1].id;
     var red1 = redCheckedBoxes[0].id;
 
-    white1 = parseInt(white1.charAt(white1.length - 1)); // get number associated with id
+    white1 = parseInt(white1.charAt(white1.length - 1));
     white2 = parseInt(white2.charAt(white2.length - 1)); 
     red1 = parseInt(red1.charAt(red1.length - 1));
 
@@ -168,7 +169,6 @@ function getCheckedBoxes(checkBoxName, desiredCardCount) {
         checkboxesChecked.push(checkboxes[i]);
      }
   }
-  // ensure the user submitted the correct number of cards
   if (checkboxesChecked.length !== desiredCardCount) return null 
   return checkboxesChecked.length > 0 ? checkboxesChecked : null;
 }
@@ -183,7 +183,6 @@ function handlePotentialPartners(data) {
         let partner = potentialPartners[i];
         let id = partner.id;
 
-        // unlocks radio buttons for current dater only
         if (playerNumber === currDater) {
             let optionString = "option" + id;
             document.getElementById(optionString).disabled = false;
@@ -236,14 +235,13 @@ function clearClientPotentialPartners() {
 
 // handles submission of which parfect-partner was selected
 function handleDaterSubmit() { 
-    // 
     var daterChoice = getCheckedBoxes("daterOption", 1);
     if (daterChoice === null) { 
         alert("Please select 1 option");
         return;
     }
-    var optionPicked = daterChoice[0].id; // grab id
-    optionPicked = parseInt(optionPicked.charAt(optionPicked.length - 1)); // get number associated with id
+    var optionPicked = daterChoice[0].id;
+    optionPicked = parseInt(optionPicked.charAt(optionPicked.length - 1));
     socket.emit('daterSubmit', optionPicked);
 
     daterChoosing.style.display = "none";
@@ -267,8 +265,6 @@ function handleRoundWinner(data) {
         alert("Your perfect-partner was not chosen :(")
     }
 }
-
-// ------------------------------------------------
 
 // handles case where client submits wrong/invalid game code
 function handleUnknownGame() { 
@@ -301,15 +297,10 @@ function handleGameOver(data) {
         alert (loserStr);
     }
 
-    // goes back to waiting lobby (wipes server ?)
-
     initialScreen.style.display = "none";
     gameScreen.style.display = "none";
     waitingScreen.style.display = "block";
-    // startGameBtn.style.display = "none";
-    daterChoosing.style.display = "none";
-    // daterSubmit.style.display = "none"
-    
+    daterChoosing.style.display = "none";    
 }
 
 // resets client 
