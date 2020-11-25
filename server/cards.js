@@ -6,17 +6,26 @@ function getRandomInt(max) {
 }
 
 // returns ONE white card (string)
-function getWhiteCard() { 
+function getWhiteCard(whiteCardsDrawnSet) { 
     let rand = getRandomInt(whiteCards.length);
+    while (whiteCardsDrawnSet.has(rand)) { 
+        rand = getRandomInt(whiteCards.length);
+    }
+    whiteCardsDrawnSet.add(rand);
     return whiteCards[rand];
 }
 
 // returns ONE red card (string)
-function getRedCard() { 
+function getRedCard(redCardsDrawnSet) { 
     let rand = getRandomInt(redCards.length);
+    while (redCardsDrawnSet.has(rand)) { 
+        rand = getRandomInt(redCards.length);
+    }
+    redCardsDrawnSet.add(rand);
     return redCards[rand];
 }
 
+// white cards players can draw
 const whiteCards = [
     "CUSTOM CARD",
     "most loyal person in the world",
@@ -96,6 +105,7 @@ const whiteCards = [
     "is hung",
 ]
 
+// red cards players can draw
 const redCards = [
     "is dating two other people",
     "only calls you by her ex's name",

@@ -45,6 +45,8 @@ function createGameState() {
         ],
         currentlyWinning: { id: 0, player: "Current Winner", score: 0},
         totalRounds: 0,
+        whiteCardsDrawn: new Set(),
+        redCardsDrawn: new Set(),
     }
 }
 
@@ -53,7 +55,13 @@ function createNewPlayer(state, id, name) {
     let newPlayer = {
         id: id,
         name: name,
-        cards: [getWhiteCard(), getWhiteCard(), getWhiteCard(), getWhiteCard(), getRedCard(), getRedCard()],
+        cards: [getWhiteCard(state.whiteCardsDrawn), 
+            getWhiteCard(state.whiteCardsDrawn), 
+            getWhiteCard(state.whiteCardsDrawn), 
+            getWhiteCard(state.whiteCardsDrawn), 
+            getRedCard(state.redCardsDrawn), 
+            getRedCard(state.redCardsDrawn)
+        ],
         score: 0,
     }
     state.players.push(newPlayer)
@@ -99,9 +107,9 @@ function assignRedCards(state) {
 
 // deals new cards to players
 function dealCards(state, id, w1, w2, r1) { 
-    state.players[id - 1].cards[w1 - 1] = getWhiteCard();
-    state.players[id - 1].cards[w2 - 1] = getWhiteCard();
-    state.players[id - 1].cards[r1 + 3] = getRedCard();
+    state.players[id - 1].cards[w1 - 1] = getWhiteCard(state.whiteCardsDrawn);
+    state.players[id - 1].cards[w2 - 1] = getWhiteCard(state.whiteCardsDrawn);
+    state.players[id - 1].cards[r1 + 3] = getRedCard(state.redCardsDrawn);
 }
 
 // updates current winner based on highest score
@@ -130,9 +138,18 @@ function clearPotentialPartners(state) {
 }
 
 function resetServerGameRoom(state) { 
+    state.whiteCardsDrawn.clear();
+    state.redCardsDrawn.clear(); 
     let players = state.players;
     for (let i = 0; i < players.length; i++) { 
-        players[i].cards = [getWhiteCard(), getWhiteCard(), getWhiteCard(), getWhiteCard(), getRedCard(), getRedCard()];
+        players[i].cards = [
+            getWhiteCard(state.whiteCardsDrawn), 
+            getWhiteCard(state.whiteCardsDrawn), 
+            getWhiteCard(state.whiteCardsDrawn), 
+            getWhiteCard(state.whiteCardsDrawn), 
+            getRedCard(state.redCardsDrawn), 
+            getRedCard(state.redCardsDrawn)
+        ];
         players[i].score = 0;
     }
     state.currentDater.id = 0;
