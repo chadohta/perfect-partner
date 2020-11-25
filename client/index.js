@@ -1,4 +1,4 @@
-const socket = io.connect('http://127.0.0.1:3000');
+const socket = io.connect('https://infinite-depths-39706.herokuapp.com/');
 
 socket.on('init', handleInit);
 socket.on('gameCode', handleGameCode);
