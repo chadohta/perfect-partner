@@ -53,7 +53,7 @@ io.on('connection', client => {
         if (numClients === 0) {
             client.emit('unknownGame');
             return;
-        } else if (numClients > 6) { 
+        } else if (numClients >= 6) { 
             client.emit('tooManyPlayers');
             return;
         }
