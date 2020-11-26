@@ -5,12 +5,14 @@ body {
     overflow: hidden;
 }
 
+/* Initial Screen Styling */
 h1#gameTitle { 
     font-family: "Poppins-Bold";
     font-size: 50px;
     margin-bottom: 40px;
 }
 
+/* Waiting Screen Styling */
 .waitingScreenHeader { 
     font-family: "Poppins-Extra-Light";
     font-size: 50px;
@@ -28,13 +30,7 @@ h1#gameTitle {
     font-size: 30px;
 }
 
-#game-body {
-    padding-top: 50px;
-    width: 100%;
-    background-color: #ccdfdf;
-    display: block;
-}
-
+/* Game Screen Styling */
 h1.gameScreenHeader { 
     font-family: "Poppins-Regular";
     font-size: 30px;
@@ -88,10 +84,7 @@ label.red-card-text {
     height: 40px;
 }
 
-#daterChoosing { 
-    text-align: center;
-}
-
+/* Dating Screen Styling  */
 #partner-options {
     background-color: rgb(225, 225, 225);
     border-radius: 20px;
@@ -141,12 +134,8 @@ h1.daterChoosingHeader {
     margin-bottom: 20px;
 }
 
-/* #current-dater-wrapper {
-    display: inline-block;
-    margin-bottom: 50px;
-}
-
-#current-dater-img {
+/* Styling for Dater Image */
+/* #current-dater-img {
     border-radius: 100%;
     display: inline-block;
     height: 200px;

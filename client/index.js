@@ -40,7 +40,7 @@ daterSubmit.addEventListener('click', handleDaterSubmit);
 // Janky site lock
 function handlePasswordSubmit() { 
     const passAttempt = sitePassAttempt.value;
-    if (passAttempt === "CilamFam2020") { 
+    if (passAttempt === "Friends2020") { 
         lockScreen.style.display = "none";
         initialScreen.style.display = "block";
     } else { 
@@ -80,23 +80,23 @@ function startGame() {
 // ------------------------------------------------------------------
 let playerNumber;
 
-// displays initial game screen 
+// Displays initial game screen 
 function init() { 
     waitingScreen.style.display = "none";
     gameScreen.style.display = "block";
 }
 
-// assigns player number to client
+// Assigns player number to client
 function handleInit(number) { 
     playerNumber = number;
 }
 
-// displays room code to client (so they can share with others)
+// Displays room code to client (so they can share with others)
 function handleGameCode(gameCode) { 
     gameCodeDisplay.innerText = gameCode;
 }
 
-// displays waiting screen which shows all players in current room on server
+// Displays waiting screen which shows all players in current room on server
 function handleWaitingScreen(players) { 
     initialScreen.style.display = "none";
     waitingScreen.style.display = "block";
@@ -109,7 +109,7 @@ function handleWaitingScreen(players) {
     playersWaiting.innerText = listOfPlayers;
 }
 
-// updates client side with server game state
+// Updates client side with server game state
 function handleGameState(gameState) { 
     init();
     gameState = JSON.parse(gameState);
@@ -134,7 +134,7 @@ function handleGameState(gameState) {
 
 }
 
-// handles submission of "perfect-partner"
+// Handles submission of "perfect-partner"
 function handlePlayerSubmit() { 
     var whiteCheckedBoxes = getCheckedBoxes("whiteCardOption", 2);
     if (whiteCheckedBoxes === null) { 
@@ -160,7 +160,7 @@ function handlePlayerSubmit() {
     daterChoosing.style.display = "block";
 }
 
-// helper function to get which cards were selected by client
+// Helper function to get which cards were selected by client
 function getCheckedBoxes(checkBoxName, desiredCardCount) {
   var checkboxes = document.getElementsByName(checkBoxName);
   var checkboxesChecked = [];
@@ -173,7 +173,7 @@ function getCheckedBoxes(checkBoxName, desiredCardCount) {
   return checkboxesChecked.length > 0 ? checkboxesChecked : null;
 }
 
-// handles displaying of all submitted potential partners to client
+// Handles displaying of all submitted potential partners to client
 function handlePotentialPartners(data) { 
     let state = JSON.parse(data);
     let potentialPartners = state.potentialPartners;
@@ -207,7 +207,7 @@ function handlePotentialPartners(data) {
     }
 }
 
-// clears all submitted potential partners for new round
+// Clears all submitted potential partners for new round
 function clearClientPotentialPartners() { 
     for (let i = 1; i <= 6; i++) { 
         let nameString = "player-name-" + i;
@@ -233,7 +233,7 @@ function clearClientPotentialPartners() {
     document.getElementById("daterSubmit").disabled = true; 
 }
 
-// handles submission of which parfect-partner was selected
+// Handles submission of which parfect-partner was selected
 function handleDaterSubmit() { 
     var daterChoice = getCheckedBoxes("daterOption", 1);
     if (daterChoice === null) { 
@@ -248,7 +248,7 @@ function handleDaterSubmit() {
     gameScreen.style.display = "block";
 }
 
-// displays an alert reflecting if your submission was chosen or not
+// Displays an alert reflecting if your submission was chosen or not
 function handleRoundWinner(data) { 
     let obj = JSON.parse(data);
     let state = obj.state;
@@ -266,23 +266,24 @@ function handleRoundWinner(data) {
     }
 }
 
-// handles case where client submits wrong/invalid game code
+// Handles case where client submits wrong/invalid game code
 function handleUnknownGame() { 
     reset();
     alert("Unknown Game Code");
 }
 
-// handles case where game room is at max capacity
+// Handles case where game room is at max capacity
 function handleTooManyPlayers() { 
     reset();
     alert("This game is at max capacity.");
 }
 
+// Handles case where there are not enough players in a room to start a game
 function handleNotEnoughPlayers() { 
     alert("3 or more players required to start game.");
 }
 
-// displays an alert reflecting who won the game
+// Displays an alert reflecting who won the game and takes client back to waiting screen
 function handleGameOver(data) { 
     let winner = JSON.parse(data);
     let winnerName = winner.player
@@ -303,15 +304,10 @@ function handleGameOver(data) {
     daterChoosing.style.display = "none";    
 }
 
-// resets client 
+// Resets client 
 function reset() { 
     playerNumber = null;
     gameCodeInput.val = '';
     gameCodeDisplay.innerText = "";
     initialScreen.style.display = "block";
-    // gameScreen.style.display = "none";
-    // waitingScreen.style.display = "none";
-    // startGameBtn.style.display = "none";
-    // daterChoosing.style.display = "none";
-    // daterSubmit.style.display = "none"
 }
