@@ -12,12 +12,13 @@ module.exports = {
     resetServerGameRoom,
 };
 
-// create first player
+// Inits a game
 function initGame() { 
     const state = createGameState(); 
     return state;
 }
 
+// Creates game state
 function createGameState() { 
     return { 
         players: [
@@ -50,7 +51,7 @@ function createGameState() {
     }
 }
 
-// handle people joining game
+// Handles players joining game
 function createNewPlayer(state, id, name) { 
     let newPlayer = {
         id: id,
@@ -67,7 +68,7 @@ function createNewPlayer(state, id, name) {
     state.players.push(newPlayer)
 }
 
-// updates current dater to next player
+// Updates current dater to next player
 function setCurrentDater(state) { 
     let numOfPlayers = state.players.length;
     let pastDaterID = state.currentDater.id;
@@ -78,7 +79,7 @@ function setCurrentDater(state) {
     state.currentDater.name = state.players[newDaterID - 1].name;
 }
 
-// handles submission of potential-partner, adds to state
+// Handles submission of potential-partner; adds to state
 function createNewPotentialPartner(state, id, w1, w2, r1) { 
     let newPotentialPartner = { 
         id: id,
@@ -93,7 +94,7 @@ function createNewPotentialPartner(state, id, w1, w2, r1) {
     dealCards(state, id, w1, w2, r1);
 }
 
-// assigns red cards to players
+// "Randomly" assigns red cards to players
 function assignRedCards(state) { 
     if (state.potentialPartners.length === state.players.length - 1) { // everyone submitted
         let idx = state.redCardsPlayed.length - 1;
@@ -105,14 +106,14 @@ function assignRedCards(state) {
     return false;
 }
 
-// deals new cards to players
+// Deals new cards to players
 function dealCards(state, id, w1, w2, r1) { 
     state.players[id - 1].cards[w1 - 1] = getWhiteCard(state.whiteCardsDrawn);
     state.players[id - 1].cards[w2 - 1] = getWhiteCard(state.whiteCardsDrawn);
     state.players[id - 1].cards[r1 + 3] = getRedCard(state.redCardsDrawn);
 }
 
-// updates current winner based on highest score
+// Updates current winner based on highest score
 function updateCurrentlyWinning(state) { 
     let players = state.players;
     for (let i = 0; i < players.length; i++) { 
@@ -124,19 +125,20 @@ function updateCurrentlyWinning(state) {
     }
 }
 
-// updates number of rounds played
+// Updates number of rounds played
 function updateTotalRounds(state) { 
     state.totalRounds += 1;
     if (state.totalRounds === state.players.length * 2) return false;
     return true;
 }
 
-// clears potential-partners and red cards played
+// Clears potential-partners and red cards played
 function clearPotentialPartners(state) { 
     state.potentialPartners = [];
     state.redCardsPlayed = [];
 }
 
+// Resets game state so players can play a new game
 function resetServerGameRoom(state) { 
     state.whiteCardsDrawn.clear();
     state.redCardsDrawn.clear(); 

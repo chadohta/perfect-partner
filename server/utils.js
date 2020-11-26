@@ -1,5 +1,6 @@
 module.exports = { makeID };
 
+// Creates a random game room ID
 function makeID(length) { 
     var result = '';
     var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

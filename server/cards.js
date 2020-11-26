@@ -5,7 +5,7 @@ function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }
 
-// returns ONE white card (string)
+// returns one white card
 function getWhiteCard(whiteCardsDrawnSet) { 
     let rand = getRandomInt(whiteCards.length);
     while (whiteCardsDrawnSet.has(rand)) { 
@@ -15,7 +15,7 @@ function getWhiteCard(whiteCardsDrawnSet) {
     return whiteCards[rand];
 }
 
-// returns ONE red card (string)
+// returns one red card
 function getRedCard(redCardsDrawnSet) { 
     let rand = getRandomInt(redCards.length);
     while (redCardsDrawnSet.has(rand)) { 

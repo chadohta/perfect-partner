@@ -24,8 +24,6 @@ const state = {};
 const clientRooms = {};
 
 io.on('connection', client => { 
-    console.log('a user connected');
-
     client.on('newGame', handleNewGame);
     client.on('joinGame', handleJoinGame);
     client.on('startGame', handleStartGame);
