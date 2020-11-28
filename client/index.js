@@ -13,11 +13,11 @@ socket.on('potentialPartners', handlePotentialPartners);
 socket.on('clearPotentialPartners', clearClientPotentialPartners);
 socket.on('roundWinner', handleRoundWinner);
 
-const lockScreen = document.getElementById('lockScreen');
-const sitePassAttempt = document.getElementById('sitePassAttempt');
-const submitPassBtn = document.getElementById('submitPassBtn');
-const gameScreen = document.getElementById('gameScreen');
+// const lockScreen = document.getElementById('lockScreen');
+// const sitePassAttempt = document.getElementById('sitePassAttempt');
+// const submitPassBtn = document.getElementById('submitPassBtn');
 const initialScreen = document.getElementById('initialScreen');
+const gameScreen = document.getElementById('gameScreen');
 const newGameBtn = document.getElementById('newGameBtn');
 const joinGameBtn = document.getElementById('joinGameBtn');
 const playerName = document.getElementById('playerName');
@@ -30,7 +30,7 @@ const daterChoosing = document.getElementById('daterChoosing');
 const daterSubmit = document.getElementById('daterSubmit');
 const daterName = document.getElementById('daterName');
 
-submitPassBtn.addEventListener('click', handlePasswordSubmit);
+// submitPassBtn.addEventListener('click', handlePasswordSubmit);
 newGameBtn.addEventListener('click', newGame);
 joinGameBtn.addEventListener('click', joinGame);
 startGameBtn.addEventListener('click', startGame);
@@ -38,25 +38,25 @@ playerSubmit.addEventListener('click', handlePlayerSubmit);
 daterSubmit.addEventListener('click', handleDaterSubmit);
 
 // Janky site lock
-function handlePasswordSubmit() { 
-    const passAttempt = sitePassAttempt.value;
-    if (passAttempt === "Friends2020") { 
-        lockScreen.style.display = "none";
-        initialScreen.style.display = "block";
-    } else { 
-        alert("Incorrect Password. Try Again.")
-    }
-}
+// function handlePasswordSubmit() { 
+//     const passAttempt = sitePassAttempt.value;
+//     if (passAttempt === "Friends2020") { 
+//         lockScreen.style.display = "none";
+//         initialScreen.style.display = "block";
+//     } else { 
+//         alert("Incorrect Password. Try Again.")
+//     }
+// }
 
 // Toggles ability to see or hide password input
-function toggleShowPassword() {
-  var x = document.getElementById("sitePassAttempt");
-  if (x.type === "password") {
-    x.type = "text";
-  } else {
-    x.type = "password";
-  }
-}
+// function toggleShowPassword() {
+//     var x = document.getElementById("sitePassAttempt");
+//   	if (x.type === "password") {
+//     	x.type = "text";
+//   	} else {
+//     	x.type = "password";
+//   	}
+// }
 
 // Creates a new game on the server
 function newGame() { 
