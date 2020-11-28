@@ -1,4 +1,4 @@
-module.exports = { getWhiteCard, getRedCard }
+module.exports = { getWhiteCard, getRedCard };
 
 // returns a random number between zero and max
 function getRandomInt(max) { 
@@ -10,7 +10,7 @@ function getWhiteCard(whiteCardsDrawnSet) {
     let rand = getRandomInt(whiteCards.length);
     while (whiteCardsDrawnSet.has(rand)) { 
         rand = getRandomInt(whiteCards.length);
-    }
+    };
     whiteCardsDrawnSet.add(rand);
     return whiteCards[rand];
 }
@@ -20,7 +20,7 @@ function getRedCard(redCardsDrawnSet) {
     let rand = getRandomInt(redCards.length);
     while (redCardsDrawnSet.has(rand)) { 
         rand = getRandomInt(redCards.length);
-    }
+    }; 
     redCardsDrawnSet.add(rand);
     return redCards[rand];
 }
@@ -85,6 +85,8 @@ const whiteCards = [
     "front row tickets to every concert",
     "supports you in anything and everything",
     "most patient person",
+    "very very cute",
+    "calls you 'baby girl'",
 ]
 
 // red cards players can draw
@@ -112,6 +114,8 @@ const redCards = [
     "you're allergic to them",
     "won't stop talking about their ex",
     "lives in a house with 8 dudes",
+    "has an only fans",
+    "is a sugar baby",
     "won't allow you to have wifi in the house",
     "never pays for anything",
     "always speaks with a heavy fake accent",

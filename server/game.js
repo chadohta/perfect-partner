@@ -128,7 +128,7 @@ function updateCurrentlyWinning(state) {
 // Updates number of rounds played
 function updateTotalRounds(state) { 
     state.totalRounds += 1;
-    if (state.totalRounds === state.players.length * 2) return false;
+    if (state.totalRounds === state.players.length) return false;
     return true;
 }
 
