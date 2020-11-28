@@ -9,9 +9,9 @@ The game can be played here: <https://confident-kepler-b716c5.netlify.app/>
 
 ## Technologies Used
 
-Front-End: VanillaJS
-Back-End: Node.js + socket.io
-Deployment: Netlify + Heroku
+Front-End: VanillaJS  
+Back-End: Node.js + socket.io  
+Deployment: Netlify + Heroku  
 
 <!-- Special Gotchas of your projects (Problems you faced, unique elements of your project)
 Technical Description of your project like- Installation, Setup, How to contribute. -->
