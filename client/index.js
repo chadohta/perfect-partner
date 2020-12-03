@@ -60,7 +60,11 @@ daterSubmit.addEventListener('click', handleDaterSubmit);
 
 // Creates a new game on the server
 function newGame() { 
-    const pName = playerName.value;
+    const pName = playerName.value.trim();
+    if (!pName) {
+        alert("Please enter your name.");
+        return;
+    }
     socket.emit('newGame', pName);
     startGameBtn.style.display = "block";
 }
