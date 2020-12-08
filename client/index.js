@@ -1,5 +1,5 @@
-const socket = io.connect('https://infinite-depths-39706.herokuapp.com/');
-// const socket = io.connect('http://localhost:3000');
+// const socket = io.connect('https://infinite-depths-39706.herokuapp.com/');
+const socket = io.connect('http://localhost:3000');
 
 socket.on('init', handleInit);
 socket.on('gameCode', handleGameCode);
@@ -12,6 +12,7 @@ socket.on('notEnoughPlayers', handleNotEnoughPlayers);
 socket.on('potentialPartners', handlePotentialPartners);
 socket.on('clearPotentialPartners', clearClientPotentialPartners);
 socket.on('roundWinner', handleRoundWinner);
+socket.on('updateScoreBoard', handleUpdateScoreBoard);
 
 // const lockScreen = document.getElementById('lockScreen');
 // const sitePassAttempt = document.getElementById('sitePassAttempt');
@@ -25,10 +26,12 @@ const gameCodeInput = document.getElementById('gameCodeInput');
 const gameCodeDisplay = document.getElementById('gameCodeDisplay');
 const waitingScreen = document.getElementById('waitingScreen');
 const startGameBtn = document.getElementById('startGameBtn');
+const scoreBoard = document.getElementById('scoreBoard');
 const playerSubmit = document.getElementById('playerSubmit')
 const daterChoosing = document.getElementById('daterChoosing');
 const daterSubmit = document.getElementById('daterSubmit');
 const daterName = document.getElementById('daterName');
+const inGameWaitingScreen = document.getElementById('inGameWaitingScreen');
 
 // submitPassBtn.addEventListener('click', handlePasswordSubmit);
 newGameBtn.addEventListener('click', newGame);
@@ -72,7 +75,11 @@ function newGame() {
 // Allows users with correct room code to join a game on the server
 function joinGame() { 
     const code = gameCodeInput.value; 
-    const pName = playerName.value;
+    const pName = playerName.value.trim();
+    if (!pName) {
+        alert("Please enter your name.");
+        return;
+    }
     socket.emit('joinGame', { roomName: code, playerName: pName });
 }
 
@@ -88,6 +95,7 @@ let playerNumber;
 function init() { 
     waitingScreen.style.display = "none";
     gameScreen.style.display = "block";
+    scoreBoard.style.display = "block";
 }
 
 // Assigns player number to client
@@ -132,6 +140,7 @@ function handleGameState(gameState) {
         gameScreen.style.display = "none";
         daterChoosing.style.display = "block";
         daterSubmit.style.display = "block";
+        inGameWaitingScreen.style.display = "block";
     } else { 
         daterSubmit.style.display = "none"
     }
@@ -162,6 +171,7 @@ function handlePlayerSubmit() {
 
     gameScreen.style.display = "none";
     daterChoosing.style.display = "block";
+    inGameWaitingScreen.style.display = "block";
 }
 
 // Helper function to get which cards were selected by client
@@ -183,6 +193,8 @@ function handlePotentialPartners(data) {
     let potentialPartners = state.potentialPartners;
     let currDater = state.currentDater.id;
 
+    inGameWaitingScreen.style.display = "none";
+
     for (let i = 0; i < potentialPartners.length; i++) { 
         let partner = potentialPartners[i];
         let id = partner.id;
@@ -190,7 +202,7 @@ function handlePotentialPartners(data) {
         if (playerNumber === currDater) {
             let optionString = "option" + id;
             document.getElementById(optionString).disabled = false;
-            document.getElementById("daterSubmit").disabled = false;
+            daterSubmit.disabled = false; // change this does it work?
         }
 
         let nameString = "player-name-" + id;
@@ -270,6 +282,21 @@ function handleRoundWinner(data) {
     }
 }
 
+function handleUpdateScoreBoard(scoresArray) { 
+    var scores = JSON.parse(scoresArray);
+    for (let i = 0; i < scores.length; i++) { 
+        let position = i + 1;
+        let sbPosition = "sb-player-" + position;
+        let sbScore = "sb-score-" + position;
+
+        var playerPosition = document.getElementById(sbPosition);
+        var playerScore = document.getElementById(sbScore);
+        
+        playerPosition.innerText = scores[i][0];
+        playerScore.innerText = scores[i][1];
+    }
+}
+
 // Handles case where client submits wrong/invalid game code
 function handleUnknownGame() { 
     reset();
@@ -305,7 +332,8 @@ function handleGameOver(data) {
     initialScreen.style.display = "none";
     gameScreen.style.display = "none";
     waitingScreen.style.display = "block";
-    daterChoosing.style.display = "none";    
+    daterChoosing.style.display = "none";
+    scoreBoard.style.display = "none";
 }
 
 // Resets client 

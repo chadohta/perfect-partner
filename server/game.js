@@ -6,6 +6,7 @@ module.exports = {
     createNewPotentialPartner,
     setCurrentDater,
     updateCurrentlyWinning,
+    updateScoreBoard,
     updateTotalRounds,
     clearPotentialPartners,
     assignRedCards,
@@ -123,6 +124,30 @@ function updateCurrentlyWinning(state) {
             state.currentlyWinning.score = players[i].score;
         }
     }
+
+    // if took in array of players/scores in sorted order
+    // will need to store id in the array as well to emit to specific client
+    // let winners = []; 
+    // let i = 0;
+    // let highScore = playerScores[i][1];
+    // winners.push(playerScores[i]);
+    // while (playerScores[++i] === highScore) { 
+    //  winners.push(playerScores[i]);
+    // }
+    // return winners;
+}
+
+// Returns an array of players and their scores in sorted order, descending
+function updateScoreBoard(state) {
+    var playerScores = [];
+    let players = state.players;
+    for (let i = 0; i < players.length; i++) { 
+        playerScores.push([players[i].name, players[i].score]);
+    }
+    playerScores.sort(function(a, b) {
+        return b[1] - a[1];
+    });
+    return playerScores;
 }
 
 // Updates number of rounds played

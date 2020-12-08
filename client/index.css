@@ -5,6 +5,10 @@ body {
     overflow: hidden;
 }
 
+.container { 
+    position: relative;
+}
+
 /* Initial Screen Styling */
 h1#gameTitle { 
     font-family: "Poppins-Bold";
@@ -85,17 +89,21 @@ label.red-card-text {
 }
 
 /* Dating Screen Styling  */
+#daterChoosing { 
+    position: relative;
+}
+
 #partner-options {
     background-color: rgb(225, 225, 225);
     border-radius: 20px;
     text-align: center;
-    width: 1000px;
+    width: 760px;
     margin-bottom: 20px;
 }
 
 .part-option {
     display: inline-block;
-    width: 160px;
+    width: 120px;
     margin: 10px 0px;
     padding-bottom: 20px;
 }
@@ -115,7 +123,8 @@ label.red-card-text {
 
 .white-card.option,
 .red-card.option { 
-    height: 160px;
+    height: 120px;
+    width: 110px; 
     font-family: "Nunito-Light";
     font-size: 13px;
     text-align: left;
@@ -132,6 +141,43 @@ h1.daterChoosingHeader {
     font-family: "Poppins-Regular";
     font-size: 30px;
     margin-bottom: 20px;
+}
+
+#inGameWaitingScreen { 
+    background-color: rgb(75, 75, 75, 0.7);
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    color: white;
+}
+
+p.in-game-waiting-text { 
+    padding-top: 60px;
+    font-family: "Nunito-Light";
+    font-size: 20px;
+}
+
+/* Score Board Styling */
+#scoreBoard { 
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 150px;
+    height: 200px;
+    background-color: rgba(150, 150, 150, 0.75);
+    font-family: "Nunito-Light";
+    font-size: 13px;
+    padding: 10px 10px;
+    border-radius: 20px;
+}
+
+h6 { 
+    font-family: "Poppins-Bold";
+    text-decoration: underline;
 }
 
 /* Styling for Dater Image */

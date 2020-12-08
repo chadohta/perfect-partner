@@ -14,6 +14,7 @@ const {
     createNewPotentialPartner,
     setCurrentDater,
     updateCurrentlyWinning,
+    updateScoreBoard,
     updateTotalRounds,
     clearPotentialPartners,
     assignRedCards,
@@ -72,6 +73,8 @@ io.on('connection', client => {
         if (state[roomName].players.length >= 3) { 
             setCurrentDater(state[roomName]);
             emitGameState(roomName, state[roomName]);
+            let scores = updateScoreBoard(state[roomName]);
+            emitScoreBoard(roomName, scores);
         } else { 
             client.emit('notEnoughPlayers');
         }
@@ -95,14 +98,16 @@ io.on('connection', client => {
         clearPotentialPartners(state[roomName]);
         emitClearPotentialPartners(roomName);
         emitGameState(roomName, state[roomName]);
-        emitRoundWinner(roomName, { state: state[roomName], winner: optionID });
-        if (!continueGame) { // end of game
-            emitGameOver(roomName, state[roomName].currentlyWinning);
-            console.log(state[roomName]);
-            resetServerGameRoom(state[roomName]);
-            console.log(state[roomName]);
-            return;
-        }
+        let scores = updateScoreBoard(state[roomName]);
+        emitScoreBoard(roomName, scores);
+        emitRoundWinner(roomName, { state: state[roomName], winner: optionID }); 
+        setTimeout(function() {
+            if (!continueGame) { // end of game
+                emitGameOver(roomName, state[roomName].currentlyWinning);
+                resetServerGameRoom(state[roomName]);
+                return;
+            }
+        }, 2500);
     }
 });
 
@@ -124,6 +129,10 @@ function emitClearPotentialPartners(roomName) {
 
 function emitRoundWinner(roomName, data) { 
     io.sockets.in(roomName).emit('roundWinner', JSON.stringify(data));
+}
+
+function emitScoreBoard(roomName, scores) { 
+    io.sockets.in(roomName).emit('updateScoreBoard', JSON.stringify(scores))
 }
 
 function emitGameOver(roomName, winner) { 

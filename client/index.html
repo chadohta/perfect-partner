@@ -12,8 +12,10 @@
     #gameScreen { display: none; }
     #waitingScreen { display: none; }
     #startGameBtn {display: none; }
+    #scoreBoard { display: none; }
     #daterChoosing {display: none; }
     #daterSubmit { display: none; }
+    #inGameWaitingScreen { display: none; }
 </style>
 
 </head>
@@ -35,10 +37,10 @@
                 <div class="d-flex flex-column align-items-center justify-content-center h-100">
                     <h1 id="gameTitle"> 💞 Perfect Partner 💞 </h1>
                     <div class="form-group">
-                        <input type="text" placeholder="Enter Name" id="playerName"/>
+                        <input type="text" placeholder="Enter Name" id="playerName" autofocus autocomplete="off"/>
                     </div>
                     <div class="form-group">
-                        <input type="text" placeholder="Enter Game Code" id="gameCodeInput"/>
+                        <input type="text" placeholder="Enter Game Code" id="gameCodeInput" autocomplete="off"/>
                     </div>
                     <button type="submit" class="btn btn-info" id="joinGameBtn"> Join Game </button>
                     </br>
@@ -56,6 +58,40 @@
                     <div id="playersWaiting"> </div>
                     <button type="submit" class="btn btn-info" id="startGameBtn"> Start Game </button>
                 </div>
+            </div>
+            <!-- SCORE BOARD -->
+            <div id="scoreBoard">
+                <h6> Score Board </h6>
+                <table>
+                    <tr>
+                        <th>Player</th>
+                        <th>Score</th>
+                    </tr>
+                    <tr>
+                        <td id="sb-player-1"> - </td>
+                        <td id="sb-score-1"> - </td>
+                    </tr>
+                    <tr>
+                        <td id="sb-player-2"> - </td>
+                        <td id="sb-score-2"> -  </td>
+                    </tr>
+                    <tr>
+                        <td id="sb-player-3"> - </td>
+                        <td id="sb-score-3"> - </td>
+                    </tr>
+                    <tr>
+                        <td id="sb-player-4"> - </td>
+                        <td id="sb-score-4"> - </td>
+                    </tr>
+                    <tr>
+                        <td id="sb-player-5"> - </td>
+                        <td id="sb-score-5"> - </td>
+                    </tr>
+                    <tr>
+                        <td id="sb-player-6"> - </td>
+                        <td id="sb-score-6"> - </td>
+                    </tr>
+                </table>
             </div>
             <!-- GAME SCREEN; INDIVIDUAL PLAYER HANDS -->
             <div id="gameScreen" class="h-100">
@@ -103,6 +139,10 @@
                 <!-- <div id="current-dater-img">
                     <img src={tempPlayer} alt="current dater"/>
                 </div> -->
+                <div id="inGameWaitingScreen">
+                    <p class="in-game-waiting-text"> Waiting for other players to submit their perfect partner ... </p>
+                </div>
+                
                 <div class="d-flex flex-column align-items-center justify-content-center h-100">
                     <h1 class="daterChoosingHeader"> Perfect Partners for <span id="daterName2"> </span></h1>
                     <div id="partner-options" name="partners"> 
