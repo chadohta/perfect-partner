@@ -14,9 +14,6 @@ socket.on('clearPotentialPartners', clearClientPotentialPartners);
 socket.on('roundWinner', handleRoundWinner);
 socket.on('updateScoreBoard', handleUpdateScoreBoard);
 
-// const lockScreen = document.getElementById('lockScreen');
-// const sitePassAttempt = document.getElementById('sitePassAttempt');
-// const submitPassBtn = document.getElementById('submitPassBtn');
 const initialScreen = document.getElementById('initialScreen');
 const gameScreen = document.getElementById('gameScreen');
 const newGameBtn = document.getElementById('newGameBtn');
@@ -33,33 +30,11 @@ const daterSubmit = document.getElementById('daterSubmit');
 const daterName = document.getElementById('daterName');
 const inGameWaitingScreen = document.getElementById('inGameWaitingScreen');
 
-// submitPassBtn.addEventListener('click', handlePasswordSubmit);
 newGameBtn.addEventListener('click', newGame);
 joinGameBtn.addEventListener('click', joinGame);
 startGameBtn.addEventListener('click', startGame);
 playerSubmit.addEventListener('click', handlePlayerSubmit);
 daterSubmit.addEventListener('click', handleDaterSubmit);
-
-// Janky site lock
-// function handlePasswordSubmit() { 
-//     const passAttempt = sitePassAttempt.value;
-//     if (passAttempt === "Friends2020") { 
-//         lockScreen.style.display = "none";
-//         initialScreen.style.display = "block";
-//     } else { 
-//         alert("Incorrect Password. Try Again.")
-//     }
-// }
-
-// Toggles ability to see or hide password input
-// function toggleShowPassword() {
-//     var x = document.getElementById("sitePassAttempt");
-//   	if (x.type === "password") {
-//     	x.type = "text";
-//   	} else {
-//     	x.type = "password";
-//   	}
-// }
 
 // Creates a new game on the server
 function newGame() { 
@@ -244,7 +219,6 @@ function clearClientPotentialPartners() {
 
         let optionString = "option" + i;
         document.getElementById(optionString).disabled = true;
-
     }
     document.getElementById("daterSubmit").disabled = true; 
 }
@@ -282,6 +256,7 @@ function handleRoundWinner(data) {
     }
 }
 
+// Handles updating the score board
 function handleUpdateScoreBoard(scoresArray) { 
     var scores = JSON.parse(scoresArray);
     for (let i = 0; i < scores.length; i++) { 
@@ -292,8 +267,8 @@ function handleUpdateScoreBoard(scoresArray) {
         var playerPosition = document.getElementById(sbPosition);
         var playerScore = document.getElementById(sbScore);
         
-        playerPosition.innerText = scores[i][0];
-        playerScore.innerText = scores[i][1];
+        playerPosition.innerText = scores[i][1];
+        playerScore.innerText = scores[i][2];
     }
 }
 
@@ -316,17 +291,26 @@ function handleNotEnoughPlayers() {
 
 // Displays an alert reflecting who won the game and takes client back to waiting screen
 function handleGameOver(data) { 
-    let winner = JSON.parse(data);
-    let winnerName = winner.player
-    let winnerScore = winner.score;
+    let winners = JSON.parse(data);
+    if (winners.length === 1) { 
+        let winnerName = winners[0][1];
+        let winnerScore = winners[0][2];
 
-    let winnerStr = "Game Over! You won! Your final score was: " + winnerScore;
-    let loserStr = "Game Over! " + winnerName + " won. Your perfect partners were sub-par /:"
-    
-    if (winner.id === playerNumber) { 
-        alert(winnerStr);
+        let winnerStr = "Game Over! You won with " + winnerScore + " points!";
+        let loserStr = "Game Over! " + winnerName + " won. Your perfect partners were sub-par /:"
+        
+        if (winners[0][0] === playerNumber) { 
+            alert(winnerStr);
+        } else { 
+            alert (loserStr);
+        }
     } else { 
-        alert (loserStr);
+        let multipleWinnerStr = "Game Over! " + winners[0][1];
+        for (let i = 1; i < winners.length; i++) { 
+            multipleWinnerStr += " and " + winners[i][1];
+        }
+        multipleWinnerStr += " won with " + winners[0][2] + " points each!"
+        alert(multipleWinnerStr);
     }
 
     initialScreen.style.display = "none";

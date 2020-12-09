@@ -5,11 +5,11 @@ module.exports = {
     createNewPlayer, 
     createNewPotentialPartner,
     setCurrentDater,
-    updateCurrentlyWinning,
-    updateScoreBoard,
+    getPlayersSortedByScore,
     updateTotalRounds,
     clearPotentialPartners,
     assignRedCards,
+    getWinner,
     resetServerGameRoom,
 };
 
@@ -45,7 +45,7 @@ function createGameState() {
             // "r1",
             // "r2",
         ],
-        currentlyWinning: { id: 0, player: "Current Winner", score: 0},
+        winners: [],
         totalRounds: 0,
         whiteCardsDrawn: new Set(),
         redCardsDrawn: new Set(),
@@ -114,38 +114,15 @@ function dealCards(state, id, w1, w2, r1) {
     state.players[id - 1].cards[r1 + 3] = getRedCard(state.redCardsDrawn);
 }
 
-// Updates current winner based on highest score
-function updateCurrentlyWinning(state) { 
-    let players = state.players;
-    for (let i = 0; i < players.length; i++) { 
-        if (players[i].score > state.currentlyWinning.score) { 
-            state.currentlyWinning.id = players[i].id;
-            state.currentlyWinning.player = players[i].name;
-            state.currentlyWinning.score = players[i].score;
-        }
-    }
-
-    // if took in array of players/scores in sorted order
-    // will need to store id in the array as well to emit to specific client
-    // let winners = []; 
-    // let i = 0;
-    // let highScore = playerScores[i][1];
-    // winners.push(playerScores[i]);
-    // while (playerScores[++i] === highScore) { 
-    //  winners.push(playerScores[i]);
-    // }
-    // return winners;
-}
-
 // Returns an array of players and their scores in sorted order, descending
-function updateScoreBoard(state) {
+function getPlayersSortedByScore(state) { 
     var playerScores = [];
     let players = state.players;
     for (let i = 0; i < players.length; i++) { 
-        playerScores.push([players[i].name, players[i].score]);
+        playerScores.push([players[i].id, players[i].name, players[i].score]);
     }
     playerScores.sort(function(a, b) {
-        return b[1] - a[1];
+        return b[2] - a[2];
     });
     return playerScores;
 }
@@ -161,6 +138,17 @@ function updateTotalRounds(state) {
 function clearPotentialPartners(state) { 
     state.potentialPartners = [];
     state.redCardsPlayed = [];
+}
+
+// Returns the winner of a game
+function getWinner(state) { 
+    let playersSorted = getPlayersSortedByScore(state);
+    let highScore = playersSorted[0][2];
+    let i = 0;
+    while (i < playersSorted.length && playersSorted[i][2] === highScore) { 
+        state.winners.push(playersSorted[i]);
+        i++;
+    }
 }
 
 // Resets game state so players can play a new game
@@ -181,8 +169,7 @@ function resetServerGameRoom(state) {
     }
     state.currentDater.id = 0;
     state.currentDater.name = "Current Dater";
-    state.currentlyWinning.id = 0;
-    state.currentlyWinning.player = "Current Winner";
-    state.currentlyWinning.score = 0;
+    state.winners = [],
     state.totalRounds = 0;
+    console.log(state);
 }

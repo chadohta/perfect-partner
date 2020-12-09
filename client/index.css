@@ -180,16 +180,6 @@ h6 {
     text-decoration: underline;
 }
 
-/* Styling for Dater Image */
-/* #current-dater-img {
-    border-radius: 100%;
-    display: inline-block;
-    height: 200px;
-    justify-content: center;
-    overflow: hidden;
-    width: 200px;
-} */
-
 @font-face {
     font-family: 'Oswald';
     src: local('Oswald'), url(./assets/fonts/Oswald/static/Oswald-Regular.ttf) format('truetype');

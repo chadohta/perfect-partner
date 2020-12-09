@@ -13,11 +13,11 @@ const {
     createNewPlayer, 
     createNewPotentialPartner,
     setCurrentDater,
-    updateCurrentlyWinning,
-    updateScoreBoard,
+    getPlayersSortedByScore,
     updateTotalRounds,
     clearPotentialPartners,
     assignRedCards,
+    getWinner,
     resetServerGameRoom,
 } = require('./game');
 
@@ -70,10 +70,11 @@ io.on('connection', client => {
 
     function handleStartGame() { 
         let roomName = clientRooms[client.id];
-        if (state[roomName].players.length >= 3) { 
+        let playerCount = state[roomName].players.length
+        if (playerCount >= 3) { 
             setCurrentDater(state[roomName]);
             emitGameState(roomName, state[roomName]);
-            let scores = updateScoreBoard(state[roomName]);
+            let scores = getPlayersSortedByScore(state[roomName]);
             emitScoreBoard(roomName, scores);
         } else { 
             client.emit('notEnoughPlayers');
@@ -92,22 +93,22 @@ io.on('connection', client => {
     function handleDaterSubmit(optionID) { 
         let roomName = clientRooms[client.id];
         state[roomName].players[optionID - 1].score += 100;
-        updateCurrentlyWinning(state[roomName]);
         let continueGame = updateTotalRounds(state[roomName]);
         setCurrentDater(state[roomName]);
         clearPotentialPartners(state[roomName]);
         emitClearPotentialPartners(roomName);
         emitGameState(roomName, state[roomName]);
-        let scores = updateScoreBoard(state[roomName]);
+        let scores = getPlayersSortedByScore(state[roomName]);
         emitScoreBoard(roomName, scores);
         emitRoundWinner(roomName, { state: state[roomName], winner: optionID }); 
         setTimeout(function() {
             if (!continueGame) { // end of game
-                emitGameOver(roomName, state[roomName].currentlyWinning);
+                getWinner(state[roomName]);
+                emitGameOver(roomName, state[roomName].winners);
                 resetServerGameRoom(state[roomName]);
                 return;
             }
-        }, 2500);
+        }, 1500);
     }
 });
 
@@ -135,8 +136,8 @@ function emitScoreBoard(roomName, scores) {
     io.sockets.in(roomName).emit('updateScoreBoard', JSON.stringify(scores))
 }
 
-function emitGameOver(roomName, winner) { 
-    io.sockets.in(roomName).emit('gameOver', JSON.stringify(winner));
+function emitGameOver(roomName, winners) { 
+    io.sockets.in(roomName).emit('gameOver', JSON.stringify(winners));
 }
 
 http.listen(process.env.PORT || 3000);
